@@ -1,4 +1,5 @@
 import Job from "../models/jobModel.js";
+import { isValidObjectId } from "mongoose";
 
 // GET ALL JOBS
 export const getAllJobs = async (req, res) => {
@@ -24,6 +25,19 @@ export const createJob = async (req, res) => {
 
 // GET SINGLE JOB
 export const getSingleJob = async (req, res) => {
+  const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return res.status(404).json({ msg: `invalid id` });
+  }
+
+  const job = await Job.findById(id);
+
+  if (!job) {
+    return res.status(404).json({ msg: `no job with id: ${id}` });
+  }
+
+  res.status(200).json({ job });
 };
 
 // EDIT JOB
