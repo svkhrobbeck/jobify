@@ -8,6 +8,18 @@ export const getAllJobs = async (req, res) => {
 
 // CREATE A JOB
 export const createJob = async (req, res) => {
+  const { position, company, jobLocation } = req.body;
+
+  if (!position.trim() || !company.trim()) {
+    return res.status(400).json({ msg: "Company and position are required" });
+  }
+
+  if (jobLocation !== undefined && jobLocation.length < 5) {
+    return res.status(400).json({ msg: "Location must be at least 5 characters long" });
+  }
+
+  const job = await Job.create(req.body);
+  res.status(201).json({ job });
 };
 
 // GET SINGLE JOB
