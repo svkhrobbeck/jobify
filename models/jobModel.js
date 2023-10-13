@@ -13,12 +13,13 @@ const jobSchema = new Schema(
     },
     jobType: {
       type: String,
-      enum: ["full-time", "part-time", "internship"],
+      enum: ["full-time", "part-time", "internship", "remote"],
       default: "full-time",
     },
     jobLocation: {
       type: String,
       default: "my city",
+      minlength: 5,
     },
   },
   { timestamps: true }
