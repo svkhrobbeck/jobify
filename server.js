@@ -5,6 +5,8 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 // routers
 import jobRouter from "./routers/jobRouter.js";
+// middlewares
+import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 
 const app = express();
 const { PORT, NODE_ENV } = process.env;
@@ -21,10 +23,7 @@ app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });
 });
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: "something went wrong" });
-});
+app.use(errorHandlerMiddleware);
 
 // listen handlers
 connectDB();
