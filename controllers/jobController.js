@@ -2,6 +2,8 @@ import Job from "../models/jobModel.js";
 
 // GET ALL JOBS
 export const getAllJobs = async (req, res) => {
+  const jobs = await Job.find();
+  res.status(200).json({ jobs });
 };
 
 // CREATE A JOB
