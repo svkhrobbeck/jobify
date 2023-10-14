@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 const reqString = { type: String, required: true };
 
 const jobSchema = new Schema(
@@ -8,17 +8,17 @@ const jobSchema = new Schema(
     position: reqString,
     jobStatus: {
       type: String,
-      enum: ["pending", "interview", "declined"],
-      default: "pending",
+      enum: Object.values(JOB_STATUS),
+      default: JOB_STATUS.PENDING,
     },
     jobType: {
       type: String,
-      enum: ["full-time", "part-time", "internship", "remote"],
-      default: "full-time",
+      enum: Object.values(JOB_TYPE),
+      default: JOB_TYPE.FULL_TIME,
     },
     jobLocation: {
       type: String,
-      default: "my city",
+      default: "Tashkent",
       minlength: 5,
     },
   },
