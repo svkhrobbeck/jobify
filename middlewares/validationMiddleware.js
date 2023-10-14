@@ -25,3 +25,9 @@ export const validateJobInput = withValidationErrors([
   body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
   body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
 ]);
+
+export const validateIdParam = withValidationErrors([
+  param("id")
+    .custom(id => isValidObjectId(id)) // true or false
+    .withMessage("invalid MongoDB id"),
+]);
