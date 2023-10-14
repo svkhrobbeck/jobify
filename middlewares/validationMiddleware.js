@@ -18,3 +18,10 @@ const withValidationErrors = validateValues => {
   ];
 };
 
+export const validateJobInput = withValidationErrors([
+  body("company").notEmpty().withMessage("company is required"),
+  body("position").notEmpty().withMessage("position is required"),
+  body("jobLocation").optional().isLength({ min: 5 }).withMessage("location must be at least 5 characters"),
+  body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
+  body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
+]);
