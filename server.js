@@ -18,10 +18,7 @@ if (NODE_ENV === "development") {
 
 // endpoints
 app.use("/api/v1/jobs", jobRouter);
-
-app.use("*", (req, res) => {
-  res.status(404).json({ msg: "not found" });
-});
+app.use("*", (req, res) => res.status(404).json({ msg: "endpoint not found" }));
 
 app.use(errorHandlerMiddleware);
 
