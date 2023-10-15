@@ -1,14 +1,13 @@
 import { StatusCodes } from "http-status-codes";
-import User from "../models/jobModel.js";
+import User from "../models/userModel.js";
 
-export const userRegister = async (req, res) => {
-  const newUser = await User.create(req.body);
-  res.status(StatusCodes.CREATED).json({ user: newUser });
+export const register = async (req, res) => {
+  console.log(req.body);
+  const user = await User.create(req.body);
+  res.status(StatusCodes.CREATED).json({ user });
 };
 
-export const userLogin = async (req, res) => {
-  const { email } = req.body;
-
-  const user = await User.findOne({ email });
+export const login = async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
   res.status(StatusCodes.OK).json({ user });
 };
