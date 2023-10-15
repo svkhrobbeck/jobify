@@ -17,3 +17,8 @@ export const JOB_SORT_TYPE = {
   ASCENDING: "a-z",
   DESCENDING: "z-a",
 };
+
+export const USER_ROLE = {
+  USER: "user",
+  ADMIN: "admin",
+};
