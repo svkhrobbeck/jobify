@@ -5,7 +5,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 // routers
 import jobRouter from "./routers/jobRouter.js";
-import userRouter from "./routers/userRouter.js";
+import authRouter from "./routers/authRouter.js";
 // middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 
@@ -19,7 +19,7 @@ if (NODE_ENV === "development") {
 
 // endpoints
 app.use("/api/v1/jobs", jobRouter);
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/users", authRouter);
 app.use("*", (req, res) => res.status(404).json({ msg: "endpoint not found" }));
 
 app.use(errorHandlerMiddleware);
