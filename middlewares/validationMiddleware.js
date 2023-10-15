@@ -3,6 +3,7 @@ import { isValidObjectId } from "mongoose";
 import { BadRequestError, NotFoundError } from "../errors/customError.js";
 import { JOB_STATUS, JOB_TYPE, USER_ROLE } from "../utils/constants.js";
 import Job from "../models/jobModel.js";
+import User from "../models/userModel.js";
 
 const withValidationErrors = validateValues => {
   return [
@@ -46,12 +47,21 @@ export const validateIdParam = withValidationErrors([
 
 export const validateRegisterInput = withValidationErrors([
   body("name").notEmpty().withMessage("name is required"),
-  body("email").notEmpty().withMessage("email is required").isEmail().withMessage("invalid email format"),
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email format")
+    .custom(async email => {
+      const isExistUser = await User.findOne({ email });
+      if (isExistUser) {
+        throw new Error("user already exists");
+      }
+    }),
   body("password")
     .notEmpty()
     .withMessage("password is required")
     .isLength({ min: 8, max: 16 })
-    .withMessage("location must be between 8 and 16 characters"),
+    .withMessage("password must be least 8 characters"),
   body("location").notEmpty().withMessage("location is required"),
-  body("role").isIn(Object.values(USER_ROLE)).withMessage("invalid role value"),
 ]);
