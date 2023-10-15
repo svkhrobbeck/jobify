@@ -29,3 +29,16 @@ Before you begin, ensure you have met the following requirements:
 - Node.js: Ensure you have Node.js installed.
 - MongoDB: You will need a MongoDB instance or connection string.
 - NPM: Ensure you have NPM (Node Package Manager) installed.
+
+#### Technologies Used:
+
+MongoDB, Express.js, React, Node.js (MERN stack)
+Customizable email notifications for job seekers.
+A user-friendly and intuitive interface for a seamless user experience.
+🌐 Live Demo: [Jobify Demo](https://jobify.soatov.uz/)
+
+🤝 Contributing:
+We welcome contributions from the open-source community. Please check out our Contributing Guidelines for details on how to get involved.
+
+📝 License:
+This project is licensed under the [MIT License](LICENCE), so feel free to use, modify, and distribute it as per the terms and conditions.
