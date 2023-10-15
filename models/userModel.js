@@ -5,20 +5,13 @@ const reqString = { type: String, required: true };
 
 const userSchema = new Schema({
   name: reqString,
-  email: reqString,
+  lastName: reqString,
   password: reqString,
-  lastName: {
-    type: String,
-    default: "lastName",
-  },
-  location: {
-    type: String,
-    default: "Tashkent",
-  },
+  location: reqString,
+  email: { ...reqString, unique: true },
   role: {
-    type: String,
+    ...reqString,
     enum: USER_ROLE,
-    default: USER_ROLE.USER,
   },
 });
 
