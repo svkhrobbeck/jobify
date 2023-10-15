@@ -1,8 +1,7 @@
 import { body, param, validationResult } from "express-validator";
 import { isValidObjectId } from "mongoose";
 import { BadRequestError, NotFoundError } from "../errors/customError.js";
-import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
-import { isValidObjectId } from "mongoose";
+import { JOB_STATUS, JOB_TYPE, USER_ROLE } from "../utils/constants.js";
 import Job from "../models/jobModel.js";
 
 const withValidationErrors = validateValues => {
@@ -43,4 +42,16 @@ export const validateIdParam = withValidationErrors([
     const job = await Job.findById(id);
     if (!job) throw new Error(`no job with id: ${id}`);
   }),
+]);
+
+export const validateRegisterInput = withValidationErrors([
+  body("name").notEmpty().withMessage("name is required"),
+  body("email").notEmpty().withMessage("email is required").isEmail().withMessage("invalid email format"),
+  body("password")
+    .notEmpty()
+    .withMessage("password is required")
+    .isLength({ min: 8, max: 16 })
+    .withMessage("location must be between 8 and 16 characters"),
+  body("location").notEmpty().withMessage("location is required"),
+  body("role").isIn(Object.values(USER_ROLE)).withMessage("invalid role value"),
 ]);
