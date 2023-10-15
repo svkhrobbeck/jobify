@@ -31,7 +31,7 @@ export const validateJobInput = withValidationErrors([
     .notEmpty()
     .withMessage("company is required")
     .isLength({ min: 5 })
-    .withMessage("location must be least 5 characters"),
+    .withMessage("location must be at least 5 characters long"),
   body("jobStatus").isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
   body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
 ]);
@@ -62,6 +62,6 @@ export const validateRegisterInput = withValidationErrors([
     .notEmpty()
     .withMessage("password is required")
     .isLength({ min: 8, max: 16 })
-    .withMessage("password must be least 8 characters"),
+    .withMessage("password must be at least 8 characters long"),
   body("location").notEmpty().withMessage("location is required"),
 ]);
