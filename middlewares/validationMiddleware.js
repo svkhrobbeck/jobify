@@ -1,4 +1,5 @@
 import { body, param, validationResult } from "express-validator";
+import { isValidObjectId } from "mongoose";
 import { BadRequestError, NotFoundError } from "../errors/customError.js";
 import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 import { isValidObjectId } from "mongoose";
@@ -23,28 +24,16 @@ const withValidationErrors = validateValues => {
   ];
 };
 
-export const validateCreateJobInput = withValidationErrors([
+export const validateJobInput = withValidationErrors([
   body("company").notEmpty().withMessage("company is required"),
   body("position").notEmpty().withMessage("position is required"),
   body("jobLocation")
-    .optional()
-    .isLength({ min: 5, max: 50 })
-    .withMessage("location must be between 5 and 50 characters"),
-  body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
-  body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
-]);
-
-export const validateEditJobInput = withValidationErrors([
-  body("company").optional().notEmpty().withMessage("company can't be empty string"),
-  body("position").optional().notEmpty().withMessage("position can't be empty string"),
-  body("jobLocation")
-    .optional()
     .notEmpty()
-    .withMessage("location can't be empty string")
-    .isLength({ min: 5, max: 50 })
-    .withMessage("location must be between 5 and 50 characters"),
-  body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
-  body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
+    .withMessage("company is required")
+    .isLength({ min: 5 })
+    .withMessage("location must be least 5 characters"),
+  body("jobStatus").isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
+  body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
 ]);
 
 export const validateIdParam = withValidationErrors([
