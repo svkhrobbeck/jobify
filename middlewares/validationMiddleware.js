@@ -18,10 +18,26 @@ const withValidationErrors = validateValues => {
   ];
 };
 
-export const validateJobInput = withValidationErrors([
+export const validateCreateJobInput = withValidationErrors([
   body("company").notEmpty().withMessage("company is required"),
   body("position").notEmpty().withMessage("position is required"),
-  body("jobLocation").optional().isLength({ min: 5 }).withMessage("location must be at least 5 characters"),
+  body("jobLocation")
+    .optional()
+    .isLength({ min: 5, max: 50 })
+    .withMessage("location must be between 5 and 50 characters"),
+  body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
+  body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
+]);
+
+export const validateEditJobInput = withValidationErrors([
+  body("company").optional().notEmpty().withMessage("company can't be empty string"),
+  body("position").optional().notEmpty().withMessage("position can't be empty string"),
+  body("jobLocation")
+    .optional()
+    .notEmpty()
+    .withMessage("location can't be empty string")
+    .isLength({ min: 5, max: 50 })
+    .withMessage("location must be between 5 and 50 characters"),
   body("jobStatus").optional().isIn(Object.values(JOB_STATUS)).withMessage("invalid status value"),
   body("jobType").optional().isIn(Object.values(JOB_TYPE)).withMessage("invalid type value"),
 ]);
