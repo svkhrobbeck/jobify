@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 const reqString = { type: String, required: true };
 
@@ -17,6 +17,10 @@ const jobSchema = new Schema(
     jobLocation: {
       ...reqString,
       minlength: 5,
+    },
+    createdBy: {
+      type: Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }
