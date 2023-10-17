@@ -5,3 +5,8 @@ export const createJwt = payload => {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
   return token;
 };
+
+export const verifyJwt = token => {
+  const decoded = jwt.verify(token, JWT_SECRET);
+  return decoded;
+};
