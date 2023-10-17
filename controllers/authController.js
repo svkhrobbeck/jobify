@@ -17,5 +17,17 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  res.status(StatusCodes.OK).json({ user });
+
+  const isValidUser = user && (await comparePassword(req.body.password, user.password));
+  if (!isValidUser) throw new UnauthenticatedError("invalid credentials");
+
+  const oneDay = 1000 * 60 * 60 * 24;
+
+  const token = createJwt({ userId: user._id, role: user.role });
+  res.cookie("token", token, {
+    httpOnly: true,
+    expire: new Date(Date.now() + oneDay),
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.status(StatusCodes.OK).json({ msg: "user logged in" });
 };
