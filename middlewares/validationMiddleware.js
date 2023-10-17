@@ -25,9 +25,10 @@ const withValidationErrors = validateValues => {
 };
 
 export const validateJobInput = withValidationErrors([
-  body("company").notEmpty().withMessage("company is required"),
-  body("position").notEmpty().withMessage("position is required"),
+  body("company").trim().notEmpty().withMessage("company is required"),
+  body("position").trim().notEmpty().withMessage("position is required"),
   body("jobLocation")
+    .trim()
     .notEmpty()
     .withMessage("company is required")
     .isLength({ min: 5 })
@@ -46,22 +47,23 @@ export const validateIdParam = withValidationErrors([
 ]);
 
 export const validateRegisterInput = withValidationErrors([
-  body("name").notEmpty().withMessage("name is required"),
+  body("name").trim().notEmpty().withMessage("name is required"),
+  body("lastName").trim().notEmpty().withMessage("lastName is required"),
   body("email")
+    .trim()
     .notEmpty()
     .withMessage("email is required")
     .isEmail()
     .withMessage("invalid email format")
     .custom(async email => {
       const isExistUser = await User.findOne({ email });
-      if (isExistUser) {
-        throw new Error("user already exists");
-      }
+      if (isExistUser) throw new Error("user already exists");
     }),
   body("password")
+    .trim()
     .notEmpty()
     .withMessage("password is required")
     .isLength({ min: 8, max: 16 })
     .withMessage("password must be at least 8 characters long"),
-  body("location").notEmpty().withMessage("location is required"),
+  body("location").trim().notEmpty().withMessage("location is required"),
 ]);
