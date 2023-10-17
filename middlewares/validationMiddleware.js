@@ -1,7 +1,7 @@
 import { body, param, validationResult } from "express-validator";
 import { isValidObjectId } from "mongoose";
 import { BadRequestError, NotFoundError, UnauthorizedError } from "../errors/customError.js";
-import { JOB_STATUS, JOB_TYPE, USER_ROLE } from "../utils/constants.js";
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 import Job from "../models/jobModel.js";
 import User from "../models/userModel.js";
 
