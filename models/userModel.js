@@ -10,8 +10,9 @@ const userSchema = new Schema({
   location: reqString,
   email: { ...reqString, unique: true },
   role: {
-    ...reqString,
+    type: String,
     enum: USER_ROLE,
+    default: USER_ROLE.USER,
   },
 });
 
