@@ -56,14 +56,19 @@ export const validateRegisterInput = withValidationErrors([
     .isEmail()
     .withMessage("invalid email format")
     .custom(async email => {
-      const isExistUser = await User.findOne({ email });
-      if (isExistUser) throw new Error("user already exists");
+      const user = await User.findOne({ email });
+      if (user) throw new Error("user already exists");
     }),
   body("password")
     .trim()
     .notEmpty()
     .withMessage("password is required")
-    .isLength({ min: 8, max: 16 })
+    .isLength({ min: 8 })
     .withMessage("password must be at least 8 characters long"),
   body("location").trim().notEmpty().withMessage("location is required"),
+]);
+
+export const validateLoginInput = withValidationErrors([
+  body("email").notEmpty().withMessage("email is required").isEmail().withMessage("invalid email format"),
+  body("password").notEmpty().withMessage("password is required"),
 ]);
