@@ -9,6 +9,7 @@ import jobRouter from "./routers/jobRouter.js";
 import authRouter from "./routers/authRouter.js";
 // middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middlewares/authMiddleware.js";
 
 const app = express();
 const { PORT, NODE_ENV } = process.env;
@@ -21,7 +22,7 @@ if (NODE_ENV === "development") {
 }
 
 // endpoints
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("*", (req, res) => res.status(404).json({ msg: "endpoint not found" }));
 
