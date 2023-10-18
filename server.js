@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 // routers
 import jobRouter from "./routers/jobRouter.js";
 import authRouter from "./routers/authRouter.js";
+import userRouter from "./routers/userRouter.js";
 // middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
@@ -23,6 +24,7 @@ if (NODE_ENV === "development") {
 
 // endpoints
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("*", (req, res) => res.status(404).json({ msg: "endpoint not found" }));
 
