@@ -16,4 +16,10 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.methods.filterJSON = function (...props) {
+  let obj = this.toObject();
+  props.forEach(key => delete obj[key]);
+  return obj;
+};
+
 export default model("User", userSchema);
