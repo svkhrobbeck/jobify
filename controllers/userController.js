@@ -13,6 +13,13 @@ export const getCurrentUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const obj = filterObjectUtil(req.body, "password");
 
-  const updatedUser = await User.findByIdAndUpdate(req.user.userId, obj);
+  await User.findByIdAndUpdate(req.user.userId, obj);
   res.status(StatusCodes.OK).json({ msg: "user updated" });
+};
+
+export const getApplicationStats = async (req, res) => {
+  const totalUsers = await User.countDocuments();
+  const totalJobs = await Job.countDocuments();
+
+  res.status(StatusCodes.OK).json({ totalUsers, totalJobs });
 };
