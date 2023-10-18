@@ -3,6 +3,7 @@ import express from "express";
 import "dotenv/config";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import connectDB from "./config/db.js";
 // routers
 import jobRouter from "./routers/jobRouter.js";
@@ -17,6 +18,7 @@ const { PORT, NODE_ENV } = process.env;
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 if (NODE_ENV === "development") {
   app.use(morgan("dev"));
