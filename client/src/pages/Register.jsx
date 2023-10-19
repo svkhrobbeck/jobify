@@ -1,11 +1,33 @@
-import { Link } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
+import customAxios from "../utils/customAxios";
+import { toast } from "react-toastify";
+import checkToastThemeOption from "../../../utils/checkToastThemeOption";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const payload = Object.fromEntries(formData);
+  const option = checkToastThemeOption();
+
+  try {
+    await customAxios.post("/auth/register", payload);
+    toast.success("Registration successful", option);
+    return redirect("/login");
+  } catch (err) {
+    toast.error(err.response.data.msg, option);
+    return err;
+  }
+};
 
 const Register = () => {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+  console.log(navigation, isSubmitting);
+
   return (
     <Wrapper>
-      <form className="form">
+      <Form className="form" method="POST">
         <Logo />
         <h4>Register</h4>
 
@@ -16,8 +38,8 @@ const Register = () => {
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
 
-        <button className="btn btn-block" type="submit">
-          submit
+        <button className="btn btn-block" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "submitting..." : "submit"}
         </button>
         <p>
           Already a member?{" "}
@@ -25,7 +47,7 @@ const Register = () => {
             Login
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   );
 };
