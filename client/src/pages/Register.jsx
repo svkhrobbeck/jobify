@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customAxios from "../utils/customAxios";
 import { toast } from "react-toastify";
-import checkToastThemeOption from "../../../utils/checkToastThemeOption";
+import checkToastThemeOption from "../utils/checkToastThemeOption";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
