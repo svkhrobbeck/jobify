@@ -14,6 +14,8 @@ const userSchema = new Schema({
     enum: USER_ROLE,
     default: USER_ROLE.USER,
   },
+  avatar: String,
+  avatarPublicId: String,
 });
 
 userSchema.methods.filterJSON = function (...props) {
