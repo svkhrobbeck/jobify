@@ -7,12 +7,22 @@ const NavLinks = ({ isBigSidebar }) => {
 
   return (
     <div className="nav-links">
-      {links.map(link => (
-        <NavLink className="nav-link" key={link.path} to={link.path} end onClick={isBigSidebar ? null : toggleSidebar}>
-          <span className="icon">{link.icon}</span>
-          {link.text}
-        </NavLink>
-      ))}
+      {links.map(link => {
+        if (user.role !== "admin" && link.path === "admin") return;
+
+        return (
+          <NavLink
+            className="nav-link"
+            key={link.path}
+            to={link.path}
+            end
+            onClick={isBigSidebar ? null : toggleSidebar}
+          >
+            <span className="icon">{link.icon}</span>
+            {link.text}
+          </NavLink>
+        );
+      })}
     </div>
   );
 };
