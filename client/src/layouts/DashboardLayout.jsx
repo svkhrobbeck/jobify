@@ -33,7 +33,7 @@ const DashboardLayout = ({ isDarkThemeEnabled }) => {
   const toggleSidebar = () => setSidebar(prev => !prev);
 
   const logoutUser = async () => {
-    await customAxios.get("/auth/logout");
+    localStorage.removeItem("t$o@k!en*");
     navigate("/");
     toast.success("Logging out...", checkToastThemeOption());
   };
