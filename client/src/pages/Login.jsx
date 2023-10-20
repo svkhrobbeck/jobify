@@ -11,7 +11,8 @@ export const loginAction = async ({ request }) => {
   const option = checkToastThemeOption();
 
   try {
-    await customAxios.post("/auth/login", payload);
+    const { data } = await customAxios.post("/auth/login", payload);
+    localStorage.setItem("t$o@k!en*", data.access_token);
     toast.success("Login successful", option);
     return redirect("/dashboard");
   } catch (err) {
