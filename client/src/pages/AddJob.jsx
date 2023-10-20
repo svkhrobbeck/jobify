@@ -32,9 +32,9 @@ const AddJob = () => {
         <h4 className="form-title">Add Job</h4>
 
         <div className="form-center">
-          <FormRow type="text" name="position" />
-          <FormRow type="text" name="company" />
-          <FormRow type="text" labelText="job location" name="jobLocation" defaultValue={user.location} />
+          <FormRow name="position" />
+          <FormRow name="company" />
+          <FormRow labelText="job location" name="jobLocation" defaultValue={user.location} />
 
           <FormRowSelect
             labelText="job status"
