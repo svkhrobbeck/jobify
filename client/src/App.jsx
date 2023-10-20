@@ -9,6 +9,7 @@ import { allJobsLoader } from "./pages/AllJobs";
 import { editJobAction, editJobLoader } from "./pages/EditJob";
 import { deleteJobAction } from "./pages/DeleteJob";
 import { adminLoader } from "./pages/Admin";
+import { profileAction } from "./pages/Profile";
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("dark-theme") === "true";
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+            action: profileAction,
           },
           {
             path: "edit-job/:id",
