@@ -3,6 +3,7 @@ import { AddJob, Admin, AllJobs, EditJob, Error, Landing, Login, Profile, Regist
 import { DashboardLayout, HomeLayout } from "./layouts";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
+import { addJobAction } from "./pages/AddJob";
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("dark-theme") === "true";
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AddJob />,
+            action: addJobAction,
           },
           {
             path: "admin",
