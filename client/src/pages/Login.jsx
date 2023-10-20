@@ -5,7 +5,7 @@ import customAxios from "../utils/customAxios";
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
 
-export const action = async ({ request }) => {
+export const loginAction = async ({ request }) => {
   const formData = await request.formData();
   const payload = Object.fromEntries(formData);
   const option = checkToastThemeOption();

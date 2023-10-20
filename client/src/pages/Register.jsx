@@ -5,7 +5,7 @@ import customAxios from "../utils/customAxios";
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
 
-export const action = async ({ request }) => {
+export const registerAction = async ({ request }) => {
   const formData = await request.formData();
   const payload = Object.fromEntries(formData);
   const option = checkToastThemeOption();
@@ -15,7 +15,7 @@ export const action = async ({ request }) => {
     toast.success("Registration successful", option);
     return redirect("/login");
   } catch (err) {
-    toast.error(err.response.data.msg, option);
+    toast.error(err?.response?.data?.msg, option);
     return err;
   }
 };
