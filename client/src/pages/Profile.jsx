@@ -1,3 +1,10 @@
+import { FormRow } from "../components";
+import Wrapper from "../assets/wrappers/DashboardFormPage";
+import { useOutletContext, useNavigation, Form, redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import customAxios from "../utils/customAxios";
+import checkToastThemeOption from "../utils/checkToastThemeOption";
+
 export const profileAction = async ({ request }) => {
   const formData = await request.formData();
   const file = formData.get("avatar");
@@ -21,6 +28,32 @@ export const profileAction = async ({ request }) => {
 };
 
 const Profile = () => {
-  return <div>Profile</div>;
+  const { user } = useOutletContext();
+  const { name, email, location, lastName } = user;
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
+  return (
+    <Wrapper>
+      <Form className="form" method="POST" encType="multipart/form-data">
+        <h4 className="form-title">profile</h4>
+        <div className="form-center">
+          <div className="form-row">
+            <label htmlFor="image" className="form-label">
+              Select an image file (max 0.5 MB):
+            </label>
+            <input type="file" id="avatar" name="avatar" className="form-input" accept="image/*" />
+          </div>
+          <FormRow name="name" defaultValue={name} />
+          <FormRow labelText="last name" name="lastName" defaultValue={lastName} />
+          <FormRow type="email" name="email" defaultValue={email} />
+          <FormRow name="location" defaultValue={location} />
+          <button className="btn btn-block form-btn" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "submitting..." : "save changes"}
+          </button>
+        </div>
+      </Form>
+    </Wrapper>
+  );
 };
 export default Profile;
