@@ -16,13 +16,11 @@ import { authenticateUser } from "./middlewares/authMiddleware.js";
 const app = express();
 const { PORT, NODE_ENV } = process.env;
 
+if (NODE_ENV === "development") app.use(morgan("dev"));
+app.use(express.static("public"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
-
-if (NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 
 // endpoints
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
