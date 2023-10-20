@@ -9,9 +9,9 @@ export const deleteJobAction = async ({ params }) => {
   try {
     await customAxios.delete(`/jobs/${params.id}`);
     toast.success("Job deleted successfully", option);
-    return redirect("../all-jobs");
   } catch (err) {
     toast.error(err?.response?.data?.msg, option);
-    return err;
   }
+
+  return redirect("../all-jobs");
 };
