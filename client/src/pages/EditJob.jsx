@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
 import customAxios from "../utils/customAxios";
-import { Form, useNavigation, redirect, useLoaderData } from "react-router-dom";
-import { FormRow, FormRowSelect } from "../components";
+import { Form, redirect, useLoaderData } from "react-router-dom";
+import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
 
@@ -35,8 +35,6 @@ export const editJobAction = async ({ request, params }) => {
 
 const EditJob = () => {
   const { job } = useLoaderData();
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
 
   return (
     <Wrapper>
@@ -58,9 +56,7 @@ const EditJob = () => {
             list={Object.values(JOB_TYPE)}
             defaultValue={job.jobType}
           />
-          <button className="btn btn-block form-btn" disabled={isSubmitting}>
-            {isSubmitting ? "submitting..." : "submit"}
-          </button>
+          <SubmitBtn formBtn />
         </div>
       </Form>
     </Wrapper>

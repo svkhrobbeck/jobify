@@ -1,6 +1,6 @@
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
-import { FormRow, Logo } from "../components";
+import { FormRow, Logo, SubmitBtn } from "../components";
 import customAxios from "../utils/customAxios";
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
@@ -22,10 +22,6 @@ export const registerAction = async ({ request }) => {
 };
 
 const Register = () => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-  console.log(navigation, isSubmitting);
-
   return (
     <Wrapper>
       <Form className="form" method="POST">
@@ -38,10 +34,8 @@ const Register = () => {
         <FormRow name="location" />
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
+        <SubmitBtn formBtn />
 
-        <button className="btn btn-block" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "submitting..." : "submit"}
-        </button>
         <p>
           Already a member?{" "}
           <Link className="member-btn" to="/login">

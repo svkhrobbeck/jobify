@@ -1,6 +1,6 @@
-import { FormRow } from "../components";
+import { FormRow, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { useOutletContext, useNavigation, Form, redirect } from "react-router-dom";
+import { useOutletContext, Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customAxios from "../utils/customAxios";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
@@ -30,8 +30,6 @@ export const profileAction = async ({ request }) => {
 const Profile = () => {
   const { user } = useOutletContext();
   const { name, email, location, lastName } = user;
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
 
   return (
     <Wrapper>
@@ -48,9 +46,7 @@ const Profile = () => {
           <FormRow labelText="last name" name="lastName" defaultValue={lastName} />
           <FormRow type="email" name="email" defaultValue={email} />
           <FormRow name="location" defaultValue={location} />
-          <button className="btn btn-block form-btn" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "submitting..." : "save changes"}
-          </button>
+          <SubmitBtn formBtn />
         </div>
       </Form>
     </Wrapper>

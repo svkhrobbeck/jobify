@@ -1,6 +1,6 @@
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
-import { FormRow, Logo } from "../components";
+import { FormRow, Logo, SubmitBtn } from "../components";
 import customAxios from "../utils/customAxios";
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
@@ -33,10 +33,8 @@ const Login = () => {
         <h4>Login</h4>
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
-        <button className="btn btn-block" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "submitting..." : "submit"}
-        </button>
-        <button className="btn btn-block" type="button">
+        <SubmitBtn formBtn />
+        <button className="btn btn-block" type="button" disabled={isSubmitting}>
           explore the app
         </button>
         <p>

@@ -31,7 +31,7 @@ export const uploadAvatarMiddleware = fileSize => {
   return [
     upload.single("avatar"),
     async (req, res, next) => {
-      const filePath = req.file.path;
+      const filePath = req?.file?.path;
       const user = await User.findById(req.user.userId).lean();
 
       if (req.file && user.avatarPublicId) {
