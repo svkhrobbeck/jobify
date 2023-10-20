@@ -15,7 +15,8 @@ export const registerAction = async ({ request }) => {
     toast.success("Registration successful", option);
     return redirect("/login");
   } catch (err) {
-    toast.error(err?.response?.data?.msg, option);
+    const errors = err?.response?.data?.msg.split(",");
+    errors.forEach(err => toast.error(err, option));
     return err;
   }
 };

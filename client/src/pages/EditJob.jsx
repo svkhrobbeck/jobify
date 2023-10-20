@@ -11,7 +11,8 @@ export const editJobLoader = async ({ params }) => {
     const { data } = await customAxios.get(`/jobs/${params.id}`);
     return data;
   } catch (err) {
-    toast.error(err?.response?.data?.msg, checkToastThemeOption());
+    const errors = err?.response?.data?.msg.split(",");
+    errors.forEach(err => toast.error(err, checkToastThemeOption()));
     return err;
   }
 };
@@ -26,7 +27,8 @@ export const editJobAction = async ({ request, params }) => {
     toast.success("Job edited successfully", option);
     return redirect("../all-jobs");
   } catch (err) {
-    toast.error(err?.response?.data?.msg, option);
+    const errors = err?.response?.data?.msg.split(",");
+    errors.forEach(err => toast.error(err, option));
     return err;
   }
 };

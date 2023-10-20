@@ -10,15 +10,16 @@ const AllJobsContext = createContext();
 export const allJobsLoader = async () => {
   try {
     const { data } = await customAxios.get("/jobs");
-    return { data };
+    return data;
   } catch (err) {
-    toast.error(err?.response?.data?.msg, checkToastThemeOption());
+    const errors = err?.response?.data?.msg.split(",");
+    errors.forEach(err => toast.error(err, checkToastThemeOption()));
     return err;
   }
 };
 
 const AllJobs = () => {
-  const { data } = useLoaderData();
+  const data = useLoaderData();
 
   return (
     <AllJobsContext.Provider value={{ data }}>

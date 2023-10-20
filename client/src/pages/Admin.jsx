@@ -11,7 +11,8 @@ export const adminLoader = async () => {
     const { data } = await customAxios.get("/users/admin/statistics");
     return data;
   } catch (err) {
-    toast.error(err?.response?.data?.msg, checkToastThemeOption());
+    const errors = err?.response?.data?.msg.split(",");
+    errors.forEach(err => toast.error(err, checkToastThemeOption()));
     return redirect("/dashboard");
   }
 };
