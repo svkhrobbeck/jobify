@@ -4,6 +4,7 @@ import { DashboardLayout, HomeLayout } from "./layouts";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { addJobAction } from "./pages/AddJob";
+import { allJobsLoader } from "./pages/AllJobs";
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("dark-theme") === "true";
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
           {
             path: "all-jobs",
             element: <AllJobs />,
+            loader: allJobsLoader,
           },
           {
             path: "stats",
