@@ -22,4 +22,5 @@ export const login = async (req, res) => {
   if (!isValidUser) throw new UnauthenticatedError("invalid credentials");
 
   const access_token = createJwt({ userId: user._id, role: user.role });
+  res.status(StatusCodes.OK).json({ access_token });
 };
