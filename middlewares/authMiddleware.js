@@ -2,8 +2,14 @@ import { UnauthenticatedError, UnauthorizedError } from "../errors/customError.j
 import { verifyJwt } from "../utils/tokenUtils.js";
 
 export const authenticateUser = (req, res, next) => {
-  const { token } = req.cookies;
-  if (!token) throw new UnauthenticatedError("invalid authentication");
+  const { authorization } = req.headers;
+  if (!authorization) throw new UnauthenticatedError("invalid authentication");
+
+  const [accessKeyword, token] = authorization.split(" ");
+
+  if ((accessKeyword !== "Token" && accessKeyword !== "Bearer") || !token) {
+    throw new UnauthenticatedError("invalid authentication");
+  }
 
   try {
     const { userId, role } = verifyJwt(token);
