@@ -21,18 +21,5 @@ export const login = async (req, res) => {
   const isValidUser = user && (await comparePassword(req.body.password, user.password));
   if (!isValidUser) throw new UnauthenticatedError("invalid credentials");
 
-  const oneDay = 1000 * 60 * 60 * 24;
-
-  const token = createJwt({ userId: user._id, role: user.role });
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure: process.env.NODE_ENV === "production",
-  });
-  res.status(StatusCodes.OK).json({ msg: "user logged in" });
-};
-
-export const logout = (req, res) => {
-  res.cookie("token", "logout", { httpOnly: true, expire: new Date(Date.now()) });
-  res.status(StatusCodes.OK).json({ msg: "user logged out" });
+  const access_token = createJwt({ userId: user._id, role: user.role });
 };
