@@ -11,7 +11,7 @@ export const getCurrentUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const obj = filterObjectUtil(req.body, "password");
+  const obj = filterObjectUtil(req.body, "password", "role");
 
   await User.findByIdAndUpdate(req.user.userId, obj);
   res.status(StatusCodes.OK).json({ msg: "user updated" });
