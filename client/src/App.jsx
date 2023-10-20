@@ -8,6 +8,7 @@ import { dashboardLoader } from "./layouts/DashboardLayout";
 import { allJobsLoader } from "./pages/AllJobs";
 import { editJobAction, editJobLoader } from "./pages/EditJob";
 import { deleteJobAction } from "./pages/DeleteJob";
+import { adminLoader } from "./pages/Admin";
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("dark-theme") === "true";
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
           {
             path: "admin",
             element: <Admin />,
+            loader: adminLoader,
           },
           {
             path: "all-jobs",
