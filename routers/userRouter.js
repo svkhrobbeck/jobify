@@ -5,7 +5,7 @@ import { authorizePermissions } from "../middlewares/authMiddleware.js";
 import { uploadAvatarMiddleware } from "../middlewares/uploadMiddleware.js";
 
 const router = Router();
-const avatarSize = 5 * Math.pow(1024, 2);
+const avatarSize = 0.5 * Math.pow(1024, 2);
 
 router.get("/current-user", getCurrentUser);
 router.patch("/update-user", uploadAvatarMiddleware(avatarSize), validateUpdateUserInput, updateUser);

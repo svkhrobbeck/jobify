@@ -39,7 +39,7 @@ export const uploadAvatarMiddleware = fileSize => {
       }
 
       if (req.file) {
-        const response = await cloudinary.uploader.upload(filePath);
+        const response = await cloudinary.uploader.upload(filePath, { folder: "avatars" });
         await fs.unlink(filePath);
         req.body.avatar = response.secure_url;
         req.body.avatarPublicId = response.public_id;

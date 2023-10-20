@@ -8,7 +8,7 @@ import checkToastThemeOption from "../utils/checkToastThemeOption";
 export const profileAction = async ({ request }) => {
   const formData = await request.formData();
   const file = formData.get("avatar");
-  const sizeLimit = 5 * Math.pow(1024, 2);
+  const sizeLimit = 0.5 * Math.pow(1024, 2);
   const option = checkToastThemeOption();
 
   if (file && file.size > sizeLimit) {
