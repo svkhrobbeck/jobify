@@ -7,3 +7,7 @@ export { default as NavLinks } from "./NavLinks";
 export { default as Navbar } from "./Navbar";
 export { default as SmallSidebar } from "./SmallSidebar";
 export { default as ThemeToggle } from "./ThemeToggle";
+export { default as Job } from "./Job";
+export { default as JobsContainer } from "./JobsContainer";
+export { default as SearchContainer } from "./SearchContainer";
+export { default as JobInfo } from "./JobInfo";
