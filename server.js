@@ -4,7 +4,10 @@ import "dotenv/config";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import cloudinary from "cloudinary";
+// config
 import connectDB from "./config/db.js";
+import cloudConfig from "./config/cloudinary.js";
 // routers
 import jobRouter from "./routers/jobRouter.js";
 import authRouter from "./routers/authRouter.js";
@@ -16,10 +19,12 @@ import { authenticateUser } from "./middlewares/authMiddleware.js";
 const app = express();
 const { PORT, NODE_ENV } = process.env;
 
+cloudinary.config(cloudConfig);
 if (NODE_ENV === "development") app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // endpoints
