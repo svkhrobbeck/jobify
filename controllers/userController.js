@@ -23,3 +23,8 @@ export const getApplicationStats = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ totalUsers, totalJobs });
 };
+
+export const deleteUser = async (req, res) => {
+  await User.findByIdAndDelete(req.user.userId);
+  res.status(StatusCodes.OK).json({ msg: "user deleted" });
+};
