@@ -19,6 +19,15 @@ export const authenticateUser = (req, res, next) => {
   }
 };
 
+export const checkForTestUser = (req, res, next) => {
+  const isTestUser = req.user.userId === "653378b6669fc5587cb5fe0c";
+
+  if (isTestUser) {
+    throw new BadRequestError("Demo User. Read Only!");
+  }
+  next();
+};
+
 export const authorizePermissions = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
