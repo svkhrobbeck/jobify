@@ -7,7 +7,7 @@ const router = Router();
 
 router.route("/").get(getAllJobs).post(validateJobInput, checkForTestUser, createJob);
 
-router.route("/stats").get(showStats);
+router.route("/data/stats").get(showStats);
 
 router
   .route("/:id")

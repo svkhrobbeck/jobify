@@ -74,7 +74,7 @@ export const showStats = async (req, res) => {
       const date = day()
         .month(month - 1)
         .year(year)
-        .format("MMM YY");
+        .format("MMM YYYY");
       return { date, count };
     })
     .reverse();

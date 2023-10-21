@@ -1,6 +1,9 @@
+import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import checkToastThemeOption from "../utils/checkToastThemeOption";
 import customAxios from "../utils/customAxios";
+import { ChartsContainer, StatsContainer } from "../components";
+
 export const statsLoader = async () => {
   try {
     const { data } = await customAxios.get("/jobs/data/stats");
@@ -11,7 +14,15 @@ export const statsLoader = async () => {
     return err;
   }
 };
+
 const Stats = () => {
-  return <div>Stats</div>;
+  const { defaultStats, monthlyApplications } = useLoaderData();
+
+  return (
+    <>
+      <StatsContainer defaultStats={defaultStats} />
+      {monthlyApplications?.length > 0 && <ChartsContainer data={monthlyApplications} />}
+    </>
+  );
 };
 export default Stats;
