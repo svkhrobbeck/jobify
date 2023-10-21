@@ -180,6 +180,11 @@ h5 {
 }
  */
 
+input:focus,
+select:focus {
+  outline-color: var(--primary-500);
+}
+
 .text {
   margin-bottom: 1.5rem;
   max-width: 40em;
