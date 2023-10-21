@@ -10,6 +10,7 @@ import { editJobAction, editJobLoader } from "./pages/EditJob";
 import { deleteJobAction } from "./pages/DeleteJob";
 import { adminLoader } from "./pages/Admin";
 import { profileAction } from "./pages/Profile";
+import { statsLoader } from "./pages/Stats";
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("dark-theme") === "true";
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
           {
             path: "stats",
             element: <Stats />,
+            loader: statsLoader,
           },
           {
             path: "profile",
