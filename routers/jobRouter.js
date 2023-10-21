@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { createJob, deleteJob, editJob, getAllJobs, getSingleJob } from "../controllers/jobController.js";
+import { createJob, deleteJob, editJob, getAllJobs, getSingleJob, showStats } from "../controllers/jobController.js";
 import { validateIdParam, validateJobInput } from "../middlewares/validationMiddleware.js";
 import { checkForTestUser } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
 router.route("/").get(getAllJobs).post(validateJobInput, checkForTestUser, createJob);
+
+router.route("/stats").get(showStats);
+
 router
   .route("/:id")
   .get(validateIdParam, getSingleJob)

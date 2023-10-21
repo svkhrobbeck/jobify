@@ -31,3 +31,7 @@ export const deleteJob = async (req, res) => {
   const removedJob = await Job.findByIdAndDelete(req.params.id);
   res.status(StatusCodes.OK).json({ msg: "deleted", job: removedJob });
 };
+
+// SHOW STATISTICS
+export const showStats = async (req, res) => {
+};
