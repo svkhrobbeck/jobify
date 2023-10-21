@@ -1,4 +1,4 @@
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo, SubmitBtn } from "../components";
 import customAxios from "../utils/customAxios";
@@ -23,8 +23,22 @@ export const loginAction = async ({ request }) => {
 };
 
 const Login = () => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const navigate = useNavigate();
+
+  const loginDemoUser = async () => {
+    const payload = { email: "test@test.com", password: "secret123" };
+    const option = checkToastThemeOption();
+
+    try {
+      const { data } = await customAxios.post("/auth/login", payload);
+      localStorage.setItem("t$o@k!en*", data.access_token);
+      toast.success("Take a test drive", option);
+      navigate("/dashboard");
+    } catch (err) {
+      const errors = err?.response?.data?.msg.split(",");
+      errors.forEach(err => toast.error(err, option));
+    }
+  };
 
   return (
     <Wrapper>
@@ -34,7 +48,7 @@ const Login = () => {
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
         <SubmitBtn formBtn />
-        <button className="btn btn-block" type="button" disabled={isSubmitting}>
+        <button className="btn btn-block" type="button" onClick={loginDemoUser}>
           explore the app
         </button>
         <p>
