@@ -1,15 +1,14 @@
-import { UnauthenticatedError, UnauthorizedError } from "../errors/customError.js";
+import { BadRequestError, UnauthenticatedError, UnauthorizedError } from "../errors/customError.js";
 import { verifyJwt } from "../utils/tokenUtils.js";
 
 export const authenticateUser = (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) throw new UnauthenticatedError("invalid authentication");
 
-  const [accessKeyword, token] = authorization.split(" ");
+  const [access, token] = authorization.split(" ");
+  const isValidAuth = (access !== "Token" && access !== "Bearer") || !token;
 
-  if ((accessKeyword !== "Token" && accessKeyword !== "Bearer") || !token) {
-    throw new UnauthenticatedError("invalid authentication");
-  }
+  if (isValidAuth) throw new UnauthenticatedError("invalid authentication");
 
   try {
     const { userId, role } = verifyJwt(token);
