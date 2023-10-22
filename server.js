@@ -9,9 +9,7 @@ import cloudinary from "cloudinary";
 import connectDB from "./config/db.js";
 import cloudConfig from "./config/cloudinary.js";
 // routers
-import jobRouter from "./routers/jobRouter.js";
-import authRouter from "./routers/authRouter.js";
-import userRouter from "./routers/userRouter.js";
+import { authRouter, jobRouter, userRouter } from "./routers/index.js";
 // middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
