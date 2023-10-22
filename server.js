@@ -5,9 +5,8 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import cloudinary from "cloudinary";
+import { cloudConfig, connectDB } from "./config/index.js";
 // config
-import connectDB from "./config/db.js";
-import cloudConfig from "./config/cloudinary.js";
 // routers
 import { authRouter, jobRouter, userRouter } from "./routers/index.js";
 // middlewares
