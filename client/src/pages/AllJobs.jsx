@@ -7,22 +7,24 @@ import { toast } from "react-toastify";
 
 const AllJobsContext = createContext();
 
-export const allJobsLoader = async () => {
+export const allJobsLoader = async ({ request: { url } }) => {
+  const params = Object.fromEntries([...new URL(url).searchParams.entries()]);
+
   try {
-    const { data } = await customAxios.get("/jobs");
-    return data;
+    const { data } = await customAxios.get("/jobs", { params });
+    return { data, searchValues: { ...params } };
   } catch (err) {
     const errors = err?.response?.data?.msg.split(",");
-    errors.forEach(err => toast.error(err, checkToastThemeOption()));
+    // errors.forEach(err => toast.error(err, checkToastThemeOption()));
     return err;
   }
 };
 
 const AllJobs = () => {
-  const data = useLoaderData();
+  const { data, searchValues } = useLoaderData();
 
   return (
-    <AllJobsContext.Provider value={{ data }}>
+    <AllJobsContext.Provider value={{ data, searchValues }}>
       <SearchContainer />
       <JobsContainer />
     </AllJobsContext.Provider>
