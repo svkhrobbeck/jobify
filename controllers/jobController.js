@@ -5,8 +5,44 @@ import Job from "../models/jobModel.js";
 
 // GET ALL JOBS
 export const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({ createdBy: req.user.userId });
-  res.status(StatusCodes.OK).json({ jobs });
+  const { search, jobStatus, jobType, sort } = req.query;
+  const queryParams = { createdBy: req.user.userId };
+
+  if (search) {
+    queryParams.$or = [
+      { position: { $regex: search, $options: "i" } },
+      { company: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  if (jobStatus && jobStatus !== "all") {
+    queryParams.jobStatus = jobStatus;
+  }
+
+  if (jobType && jobType !== "all") {
+    queryParams.jobType = jobType;
+  }
+
+  const sortOptions = {
+    newest: "-createdAt",
+    oldest: "createdAt",
+    "a-z": "position",
+    "z-a": "-position",
+  };
+
+  const sortKey = sortOptions[sort] || sortOptions.newest;
+
+  const total = await Job.countDocuments(queryParams);
+  const page = +req.query.page || 1;
+  const limit = +req.query.limit || 10;
+  const skip = (page - 1) * limit;
+  const pages = Math.ceil(total / limit);
+
+  const jobs = await Job.find(queryParams)
+    .sort(sortKey)
+    .skip(skip)
+    .limit(limit);
+  res.status(StatusCodes.OK).json({ total, pages, currentPage: page, jobs });
 };
 
 // CREATE A JOB
@@ -24,7 +60,9 @@ export const getSingleJob = async (req, res) => {
 
 // EDIT JOB
 export const editJob = async (req, res) => {
-  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
   res.status(StatusCodes.OK).json({ job: updatedJob });
 };
 
