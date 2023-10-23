@@ -22,3 +22,10 @@ export const USER_ROLE = {
   USER: "user",
   ADMIN: "admin",
 };
+
+export const JOB_SORT_BY = {
+  newest: "-createdAt",
+  oldest: "createdAt",
+  "a-z": "position",
+  "z-a": "-position",
+};

@@ -13,12 +13,7 @@ export const JOB_TYPE = {
 
 export const JOB_SORT_TYPE = {
   NEWEST_FIRST: "newest",
-  NEWEST_FIRST: "oldest",
+  OLDEST_FIRST: "oldest",
   ASCENDING: "a-z",
   DESCENDING: "z-a",
-};
-
-export const USER_ROLE = {
-  USER: "user",
-  ADMIN: "admin",
 };
