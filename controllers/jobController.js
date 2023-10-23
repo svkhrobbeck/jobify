@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { Types } from "mongoose";
 import day from "dayjs";
 import Job from "../models/jobModel.js";
+import { JOB_SORT_BY } from "../utils/constants.js";
 
 // GET ALL JOBS
 export const getAllJobs = async (req, res) => {
@@ -23,14 +24,7 @@ export const getAllJobs = async (req, res) => {
     queryParams.jobType = jobType;
   }
 
-  const sortOptions = {
-    newest: "-createdAt",
-    oldest: "createdAt",
-    "a-z": "position",
-    "z-a": "-position",
-  };
-
-  const sortKey = sortOptions[sort] || sortOptions.newest;
+  const sortKey = JOB_SORT_BY[sort] || JOB_SORT_BY.newest;
 
   const total = await Job.countDocuments(queryParams);
   const page = +req.query.page || 1;
