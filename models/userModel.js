@@ -11,7 +11,7 @@ const userSchema = new Schema({
   email: { ...reqString, unique: true },
   role: {
     type: String,
-    enum: USER_ROLE,
+    enum: Object.values(USER_ROLE),
     default: USER_ROLE.USER,
   },
   avatar: String,
