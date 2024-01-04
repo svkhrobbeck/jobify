@@ -15,7 +15,7 @@ export const allJobsLoader = async ({ request: { url } }) => {
     return { data, searchValues: { ...params } };
   } catch (err) {
     const errors = err?.response?.data?.msg.split(",");
-    // errors.forEach(err => toast.error(err, checkToastThemeOption()));
+    errors.forEach(err => toast.error(err, checkToastThemeOption()));
     return err;
   }
 };

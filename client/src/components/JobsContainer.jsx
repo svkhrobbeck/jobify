@@ -4,7 +4,7 @@ import { Job, PageBtnContainer } from ".";
 
 const JobsContainer = () => {
   const { data } = useAllJobsContext();
-  const { jobs, total, pages, currentPage } = data;
+  const { jobs, total, pages } = data;
 
   if (jobs.length === 0) {
     return (
